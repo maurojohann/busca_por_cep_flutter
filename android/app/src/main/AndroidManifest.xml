@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.klab_post_code_search">
    <application
-        android:label="klab_post_code_search"
+        android:label="KlabCEP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
