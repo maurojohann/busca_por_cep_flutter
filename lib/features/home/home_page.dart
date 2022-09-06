@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klab_post_code_search/features/home/home.dart';
 import 'package:klab_post_code_search/shared/components/kc_app_bar.dart';
 import 'package:klab_post_code_search/shared/components/kc_header_base_page.dart';
-import 'package:klab_post_code_search/shared/router/route_generator.dart';
+import 'package:klab_post_code_search/shared/router/routes.dart';
+import 'package:klab_post_code_search/shared/utils/cep_formatter.dart';
 
-import '../../shared/theme/theme.dart';
-import 'bloc/home_page_bloc.dart';
+import 'presenter/components/error_alert_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,30 +24,116 @@ class _HomePageState extends State<HomePage> {
         title: 'Busca CEP',
       ),
       body: KCHeaderBasePage(
-        child: BlocConsumer<HomePageBloc, HomePageState>(
+        child: BlocListener<HomePageBloc, HomePageState>(
           listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: ElevatedButton(
-                      child: const Text('Buscar'),
-                      onPressed: () {
-                        context.read<ThemeCubit>().updateTheme();
-                      }),
-                ),
-                Center(
-                  child: ElevatedButton(
-                      child: const Text('Navegar'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, RouteNames.RESULT);
-                      }),
-                ),
-              ],
+            state.maybeWhen(
+              orElse: () {},
+              error: (error) async => await showErrorDialog(
+                context: context,
+                messageError: error,
+              ),
+              loaded: (postCodeEntity) => Navigator.pushNamed(
+                  context, RouteNames.RESULT,
+                  arguments: postCodeEntity),
             );
+          },
+          child: const _BuildLoadedScreen(),  
+        ),
+      ),
+    );
+  }
+}
+
+class _BuildLoadedScreen extends StatefulWidget {
+  const _BuildLoadedScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_BuildLoadedScreen> createState() => _BuildLoadedScreenState();
+}
+
+class _BuildLoadedScreenState extends State<_BuildLoadedScreen> {
+  final TextEditingController _textEditingController =
+      TextEditingController(text: '');
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  bool isValueCompleted = false;
+  final _cepFormatter = CepFormatter();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildInputCep(),
+        _buildSearchButton(context),
+      ],
+    );
+  }
+
+  Padding _buildInputCep() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: _textEditingController,
+        keyboardType: TextInputType.number,
+        maxLength: 9,
+        decoration: const InputDecoration(hintText: 'Insira o CEP'),
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+          _cepFormatter
+        ],
+        onChanged: (value) {
+          if (value.length == 9) {
+            setState(() {
+              isValueCompleted = true;
+            });
+          } else {
+            setState(() {
+              isValueCompleted = false;
+            });
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildSearchButton(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        onPressed: isValueCompleted
+            ? () {
+                BlocProvider.of<HomePageBloc>(context).add(
+                  HomePageEvent.serach(
+                    _cepFormatter.unmaskText(_textEditingController.text),
+                  ),
+                );
+              }
+            : null,
+        child: BlocBuilder<HomePageBloc, HomePageState>(
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return const SizedBox(
+                  width: 65,
+                  child: Padding(
+                    padding: EdgeInsets.all(0.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ));
+            } else {
+              return const SizedBox(
+                width: 65,
+                child: Center(child: Text('Buscar')),
+              );
+            }
           },
         ),
       ),
