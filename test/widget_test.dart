@@ -7,9 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:klab_post_code_search/app/app.dart';
-
-import 'package:klab_post_code_search/main.dart';
+import 'package:klab_post_code_search/core/app/app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klab_post_code_search/shared/router/route_generator.dart';
 
 
-import '../shared/theme/theme.dart';
+import '../../shared/theme/theme.dart';
 
 class KLabApp extends StatelessWidget {
   const KLabApp({super.key});
