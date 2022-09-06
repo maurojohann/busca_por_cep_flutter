@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klab_post_code_search/shared/components/kc_app_bar.dart';
+import 'package:klab_post_code_search/shared/components/kc_header_base_page.dart';
+import 'package:klab_post_code_search/shared/router/route_generator.dart';
 
 import '../../shared/theme/theme.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return Scaffold(
-      appBar: _buildAppBar(theme),
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(18.0),
-            topRight: Radius.circular(18.0),
-          ),
-          color: theme.colorScheme.secondary,
-        ),
+      appBar: const KCAppBar(
+        title: 'Busca CEP',
+      ),
+      body: KCHeaderBasePage(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -34,34 +31,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     context.read<ThemeCubit>().updateTheme();
                   }),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar(ThemeData theme) {
-    return AppBar(
-      backgroundColor: theme.colorScheme.background,
-      toolbarHeight: 84,
-      elevation: 0,
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 26, right: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Busca CEP',
-                  style: theme.textTheme.headline4,
-                ),
-              ],
+            Center(
+              child: ElevatedButton(
+                  child: const Text('Navegar'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteNames.RESULT);
+                  }),
             ),
-          ),
+          ],
         ),
       ),
     );

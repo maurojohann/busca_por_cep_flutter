@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klab_post_code_search/shared/router/route_generator.dart';
 
-import '../features/home/home.dart';
-import '../main.dart';
+
 import '../shared/theme/theme.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+class KLabApp extends StatelessWidget {
+  const KLabApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,8 @@ class App extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: brightnees,
-            home: const MyHomePage(),
+            initialRoute: RouteNames.HOME,
+            onGenerateRoute: RouteGenerator.generateRoute,
           );
         },
       ),
