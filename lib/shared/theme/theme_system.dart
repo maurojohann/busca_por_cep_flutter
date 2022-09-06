@@ -5,12 +5,26 @@ class ThemeSystem {
   static ThemeData themeLight = ThemeData(
     brightness: Brightness.light,
     textTheme: _textThemeLight,
+    scaffoldBackgroundColor: Colors.yellow,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.yellow,
+      brightness: Brightness.light,
+      primary: Colors.yellow,
+      secondary: Colors.white,
+      background: Colors.yellow,
+      tertiaryContainer: Colors.yellow[300],
+    ),
   );
   static final ThemeData themeDark = ThemeData(
     brightness: Brightness.dark,
     textTheme: _textThemeDark,
-    colorScheme: const ColorScheme.dark(
-      primary: Colors.yellow,
+    scaffoldBackgroundColor: Colors.black54,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.yellow,
+      brightness: Brightness.dark,
+      secondary: Color.fromARGB(99, 154, 154, 154),
+      background: Colors.black54,
+      tertiaryContainer: Colors.white,
     ),
   );
 
@@ -33,6 +47,7 @@ class ThemeSystem {
       fontSize: 34,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.25,
+      color: Colors.black,
     ),
     headline5: GoogleFonts.roboto(
       fontSize: 24,
