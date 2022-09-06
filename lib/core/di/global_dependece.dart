@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:klab_post_code_search/core/app/api_config.dart';
 
+import '../../features/home/home.dart';
+
 GetIt serviceLocator = GetIt.instance;
 
 class GlobalDependencies {
@@ -22,5 +24,8 @@ class GlobalDependencies {
     final Dio dio = Dio(BaseOptions(baseUrl: ApiConfig.baseURL));
 
     getIt.registerSingleton<Dio>(dio);
+
+    // Home Page BLoc
+    getIt.registerFactory<HomePageBloc>(() => HomePageBloc());
   }
 }

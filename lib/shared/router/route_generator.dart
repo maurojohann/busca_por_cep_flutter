@@ -1,8 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klab_post_code_search/features/result/presentation/pages/result_page.dart';
 
+import '../../core/di/global_dependece.dart';
 import '../../features/home/home.dart';
 
 class RouteNames {
@@ -16,10 +18,16 @@ class RouteGenerator {
     switch (settings.name) {
       case RouteNames.HOME:
         return MaterialPageRoute(
-            builder: (_) => const HomePage(), settings: settings);
+          settings: settings,
+          builder: (_) => BlocProvider.value(
+            value: serviceLocator<HomePageBloc>(),
+            child: const HomePage(),
+          ),
+        );
       case RouteNames.RESULT:
-        return PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const ResultPage(),
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ResultPage(),
         );
       default:
         return errorRoute();

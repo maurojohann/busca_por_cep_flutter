@@ -5,6 +5,7 @@ import 'package:klab_post_code_search/shared/components/kc_header_base_page.dart
 import 'package:klab_post_code_search/shared/router/route_generator.dart';
 
 import '../../shared/theme/theme.dart';
+import 'bloc/home_page_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,24 +22,31 @@ class _HomePageState extends State<HomePage> {
         title: 'Busca CEP',
       ),
       body: KCHeaderBasePage(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: ElevatedButton(
-                  child: const Text('Buscar'),
-                  onPressed: () {
-                    context.read<ThemeCubit>().updateTheme();
-                  }),
-            ),
-            Center(
-              child: ElevatedButton(
-                  child: const Text('Navegar'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, RouteNames.RESULT);
-                  }),
-            ),
-          ],
+        child: BlocConsumer<HomePageBloc, HomePageState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: ElevatedButton(
+                      child: const Text('Buscar'),
+                      onPressed: () {
+                        context.read<ThemeCubit>().updateTheme();
+                      }),
+                ),
+                Center(
+                  child: ElevatedButton(
+                      child: const Text('Navegar'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, RouteNames.RESULT);
+                      }),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
