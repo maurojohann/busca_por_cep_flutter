@@ -13,12 +13,11 @@ Taking the opportunity to use two packages flutter_native_splash and flutter_ico
 
 * Dark Mode
 
-![darkmode](https://user-images.githubusercontent.com/15696360/200874663-4459b3dc-9a1f-4b20-b34f-3962da065102.png)
+![dark_mode](https://user-images.githubusercontent.com/15696360/202547181-ff3d95af-115e-4f71-a835-f123da3b7798.png)
 
 * Light Mode
 
-![lightmode](https://user-images.githubusercontent.com/15696360/200874720-8bb239be-3ab7-411b-b0a8-ada36bf6332e.png)
-
+![ligth_mode](https://user-images.githubusercontent.com/15696360/202547312-f64dc6f2-f65d-4a9d-b2cf-15327321f57a.png)
 
 
 ## Features:
