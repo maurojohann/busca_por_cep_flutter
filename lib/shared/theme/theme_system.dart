@@ -5,14 +5,14 @@ class ThemeSystem {
   static ThemeData themeLight = ThemeData(
     brightness: Brightness.light,
     textTheme: _textThemeLight,
-    scaffoldBackgroundColor: Colors.yellow,
+    scaffoldBackgroundColor: Colors.yellow[700],
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.yellow,
+      seedColor: Colors.yellow[700]!,
       brightness: Brightness.light,
-      primary: Colors.yellow,
+      primary: Colors.yellow[700],
       secondary: Colors.white,
-      background: Colors.yellow,
-      tertiaryContainer: Colors.yellow[300],
+      background: Colors.yellow[700],
+      // tertiaryContainer: Colors.yellow[300],
     ),
   );
   static final ThemeData themeDark = ThemeData(

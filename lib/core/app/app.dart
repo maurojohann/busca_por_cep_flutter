@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klab_post_code_search/shared/router/route_generator.dart';
 
-
 import '../../shared/theme/theme.dart';
 
 class KLabApp extends StatelessWidget {
@@ -20,6 +19,7 @@ class KLabApp extends StatelessWidget {
 
           return MaterialApp(
             title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
             theme: brightnees,
             initialRoute: RouteNames.HOME,
             onGenerateRoute: RouteGenerator.generateRoute,

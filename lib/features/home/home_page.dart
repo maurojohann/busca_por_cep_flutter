@@ -23,7 +23,18 @@ class _HomePageState extends State<HomePage> {
       appBar: const KCAppBar(
         title: 'Busca CEP',
       ),
-      body: KCHeaderBasePage(
+      body: Column(
+        children: [
+          _buildInfoTitle(),
+          _buildSearchContent(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchContent() {
+    return Expanded(
+      child: KCHeaderBasePage(
         child: BlocListener<HomePageBloc, HomePageState>(
           listener: (context, state) {
             state.maybeWhen(
@@ -37,9 +48,25 @@ class _HomePageState extends State<HomePage> {
                   arguments: postCodeEntity),
             );
           },
-          child: const _BuildLoadedScreen(),  
+          child: const _BuildLoadedScreen(),
         ),
       ),
+    );
+  }
+
+  Widget _buildInfoTitle() {
+    return const Padding(
+      padding: EdgeInsets.only(left: 56, right: 56, bottom: 64),
+      child: Center(
+          child: Text(
+        'Encontre informaçoes detalhadas sobre seu CEP',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      )),
     );
   }
 }
@@ -76,9 +103,9 @@ class _BuildLoadedScreenState extends State<_BuildLoadedScreen> {
     );
   }
 
-  Padding _buildInputCep() {
+  Widget _buildInputCep() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: TextFormField(
         controller: _textEditingController,
         keyboardType: TextInputType.number,
